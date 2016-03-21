@@ -15,7 +15,6 @@ import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.List;
 
@@ -41,43 +40,60 @@ public class CommonTask {
             Log.e(TAG, "context null");
             return null;
         }
+        String geo = null;
 
         try {
 
-            String geo = getLocation(context);
+            geo = getLocation(context);
             if (geo != null) {
                 geo_cordinate = URLEncoder.encode(geo.trim(), "UTF-8");
             } else
                 geo_cordinate = URLEncoder.encode("no_value", "UTF-8");
 
+        }catch (Exception e){
 
-            String wifi = getWifiName(context);
+        }
+
+        String wifi = null;
+        try {
+            wifi = getWifiName(context);
             if (wifi != null) {
                 if (wifi.contains("\""))
                     wifi = wifi.replace("\"", "");
                 wifi_connected = URLEncoder.encode(wifi.trim(), "UTF-8");
             } else
                 wifi_connected = URLEncoder.encode("no_value", "UTF-8");
+        }catch (Exception e){}
 
-            String mac = getDeviceMac(context);
+        String mac = null;
+        try {
+            mac = getDeviceMac(context);
             if (mac != null) {
                 device_mac = URLEncoder.encode(mac, "UTF-8");
             } else
                 device_mac = URLEncoder.encode("no_value", "UTF-8");
+        }catch (Exception e){}
 
-            String devicename = getDeviceName();
+        String devicename = null;
+        try {
+            devicename = getDeviceName();
             if (devicename != null) {
                 device_name = URLEncoder.encode(devicename, "UTF-8");
             } else
                 device_name = URLEncoder.encode("no_value", "UTF-8");
+        }catch (Exception e){}
 
-            String packageName = getPackName(context);
+        String packageName = null;
+        try {
+            packageName = getPackName(context);
             if (packageName != null) {
                 package_name = URLEncoder.encode(packageName, "UTF-8");
+                appname = URLEncoder.encode("appname", "UTF-8");
             } else
                 package_name = URLEncoder.encode("no_value", "UTF-8");
 
-            appname = URLEncoder.encode("appname", "UTF-8");
+        }catch (Exception e){}
+
 
 
             pingModal = new PingModal(geo_cordinate,
@@ -86,11 +102,6 @@ public class CommonTask {
                     device_mac,
                     appname,
                     device_name);
-
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-
 
         return pingModal;
     }

@@ -1,6 +1,9 @@
 package android.com.finddevice.services;
 
 import android.app.Service;
+import android.com.finddevice.apputil.CommonTask;
+import android.com.finddevice.listeners.PingListener;
+import android.com.finddevice.networking.ApiManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
@@ -52,20 +55,20 @@ public class AppStarter extends Service{
 
                         Log.e("schedule task started", ""+System.currentTimeMillis());
 
-//                        ApiManager apiManager = new ApiManager();
-//                        if(!CommonTask.isInternetAvailable(AppStarter.this))
-//                            return;
-//                apiManager.pingLocation(new PingListener() {
-//                    @Override
-//                    public void onPingSuccess(String success_message) {
-//                        Log.e(TAG, "" + success_message);
-//                    }
-//
-//                    @Override
-//                    public void onPingFailure(String error_message) {
-//                        Log.e(TAG,""+error_message);
-//                    }
-//                }, CommonTask.getPingModal(AppStarter.this));
+                        ApiManager apiManager = new ApiManager();
+                        if(!CommonTask.isInternetAvailable(AppStarter.this))
+                            return;
+                apiManager.pingLocation(new PingListener() {
+                    @Override
+                    public void onPingSuccess(String success_message) {
+                        Log.e(TAG, "" + success_message);
+                    }
+
+                    @Override
+                    public void onPingFailure(String error_message) {
+                        Log.e(TAG,""+error_message);
+                    }
+                }, CommonTask.getPingModal(AppStarter.this));
                     }
                 }, 0, 3, TimeUnit.SECONDS);
     }
