@@ -42,7 +42,6 @@ public class CommonTask {
             return null;
         }
 
-
         try {
 
             String geo = getLocation(context);
