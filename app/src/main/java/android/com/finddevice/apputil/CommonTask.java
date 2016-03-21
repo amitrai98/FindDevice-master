@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
@@ -216,4 +217,23 @@ public class CommonTask {
         }
     }
 
+    /**
+     * if internet is connected
+     * @return
+     */
+    public static boolean  isInternetAvailable(Context context) {
+        if(context == null)
+            return false;
+        ConnectivityManager connectivity = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivity != null) {
+            NetworkInfo[] networkInfos = connectivity.getAllNetworkInfo();
+            if (networkInfos != null)
+                for (NetworkInfo info : networkInfos) {
+                    if (info.getState() == NetworkInfo.State.CONNECTED) {
+                        return true;
+                    }
+                }
+        }
+        return false;
+    }
 }

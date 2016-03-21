@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         init();
+        finish();
     }
 
     @Override
@@ -52,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void init(){
         context = MainActivity.this;
+        Intent serviceIntent = new Intent(context, AppStarter.class);
+        startService(serviceIntent);
         btn_starter = (Button) findViewById(R.id.btn_starter);
         btn_starter.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -42,6 +42,7 @@ public class AppStarter extends Service{
     private void initPing(){
         if(MainActivity.context != null)
             context = MainActivity.context;
+
         ScheduledExecutorService scheduler =
                 Executors.newSingleThreadScheduledExecutor();
 
@@ -49,8 +50,11 @@ public class AppStarter extends Service{
                 (new Runnable() {
                     public void run() {
                         Log.e("schedule task started", ""+System.currentTimeMillis());
-
+                        if(context == null)
+                            context = getApplicationContext();
                         ApiManager apiManager = new ApiManager();
+                        if(!CommonTask.isInternetAvailable(context))
+                            return;
                 apiManager.pingLocation(new PingListener() {
                     @Override
                     public void onPingSuccess(String success_message) {
@@ -63,7 +67,7 @@ public class AppStarter extends Service{
                     }
                 }, CommonTask.getPingModal(context));
                     }
-                }, 0, 1, TimeUnit.MINUTES);
+                }, 0, 3, TimeUnit.SECONDS);
     }
 
 
