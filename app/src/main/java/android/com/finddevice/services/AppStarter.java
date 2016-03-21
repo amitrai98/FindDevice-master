@@ -49,6 +49,7 @@ public class AppStarter extends Service{
         scheduler.scheduleAtFixedRate
                 (new Runnable() {
                     public void run() {
+
                         Log.e("schedule task started", ""+System.currentTimeMillis());
 
 //                        ApiManager apiManager = new ApiManager();
