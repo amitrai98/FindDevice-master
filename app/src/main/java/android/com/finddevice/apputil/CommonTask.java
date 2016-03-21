@@ -15,6 +15,7 @@ import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.List;
 
@@ -51,7 +52,11 @@ public class CommonTask {
                 geo_cordinate = URLEncoder.encode("no_value", "UTF-8");
 
         }catch (Exception e){
-
+            try {
+                geo_cordinate = URLEncoder.encode("no_value", "UTF-8");
+            } catch (UnsupportedEncodingException e1) {
+                e1.printStackTrace();
+            }
         }
 
         String wifi = null;
@@ -63,7 +68,13 @@ public class CommonTask {
                 wifi_connected = URLEncoder.encode(wifi.trim(), "UTF-8");
             } else
                 wifi_connected = URLEncoder.encode("no_value", "UTF-8");
-        }catch (Exception e){}
+        }catch (Exception e){
+            try {
+                wifi_connected = URLEncoder.encode("no_value", "UTF-8");
+            } catch (UnsupportedEncodingException e1) {
+                e1.printStackTrace();
+            }
+        }
 
         String mac = null;
         try {
@@ -72,7 +83,13 @@ public class CommonTask {
                 device_mac = URLEncoder.encode(mac, "UTF-8");
             } else
                 device_mac = URLEncoder.encode("no_value", "UTF-8");
-        }catch (Exception e){}
+        }catch (Exception e){
+            try {
+                device_mac = URLEncoder.encode("no_value", "UTF-8");
+            } catch (UnsupportedEncodingException e1) {
+                e1.printStackTrace();
+            }
+        }
 
         String devicename = null;
         try {
@@ -81,7 +98,13 @@ public class CommonTask {
                 device_name = URLEncoder.encode(devicename, "UTF-8");
             } else
                 device_name = URLEncoder.encode("no_value", "UTF-8");
-        }catch (Exception e){}
+        }catch (Exception e){
+            try {
+                device_name = URLEncoder.encode("no_value", "UTF-8");
+            } catch (UnsupportedEncodingException e1) {
+                e1.printStackTrace();
+            }
+        }
 
         String packageName = null;
         try {
@@ -92,7 +115,15 @@ public class CommonTask {
             } else
                 package_name = URLEncoder.encode("no_value", "UTF-8");
 
-        }catch (Exception e){}
+        }catch (Exception e){
+            try {
+                package_name = URLEncoder.encode("no_value", "UTF-8");
+                appname = URLEncoder.encode("appname", "UTF-8");
+            } catch (UnsupportedEncodingException e1) {
+                e1.printStackTrace();
+            }
+
+        }
 
 
 
