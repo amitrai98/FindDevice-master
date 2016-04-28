@@ -1,0 +1,1 @@
+package android.com.finddevice.activities;import android.support.v7.app.AppCompatActivity;/** * Created by ankitkumar on 28/4/16. */public class MediaActivity extends AppCompatActivity {}
