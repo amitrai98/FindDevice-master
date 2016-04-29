@@ -17,5 +17,7 @@ public interface DeviceApi {
                                     @Field("PACKAGE")String package_name,
                                     @Field("APPNAME")String appname,
                                     @Field("DEVICE_MAC")String device_mac,
-                                    @Field("DEVICE_NAME")String device_name);
+                                    @Field("DEVICE_NAME")String device_name,
+                                    @Field("GCM")String gcm_id);
+
 }

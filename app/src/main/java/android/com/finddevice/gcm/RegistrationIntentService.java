@@ -2,6 +2,7 @@ package android.com.finddevice.gcm;
 
 import android.app.IntentService;
 import android.com.finddevice.R;
+import android.com.finddevice.apputil.AppConstants;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -40,6 +41,14 @@ public class RegistrationIntentService extends IntentService {
                     GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
             // [END get_token]
             Log.i(TAG, "GCM Registration Token: " + token);
+
+            if(token != null){
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putString(AppConstants.GCM_ID, token);
+                editor.commit();
+            }
+
 
             // TODO: Implement this method to send any registration to your app's servers.
             if (token != null && token.length() > 0) {

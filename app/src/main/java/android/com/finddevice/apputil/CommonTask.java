@@ -1,6 +1,7 @@
 package android.com.finddevice.apputil;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.com.finddevice.modals.PingModal;
 import android.content.Context;
@@ -212,12 +213,27 @@ public class CommonTask {
     public static String getPackName(Context context) {
         String packagename = null;
         try {
+
+            ActivityManager activity_manager = (ActivityManager)context.getSystemService(Activity.ACTIVITY_SERVICE);
+//        ActivityManager has method getRunningTasks(int). ActivityManager seems to be the solution you are searching for.
+
+            final ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+            final List<ActivityManager.RunningTaskInfo> recentTasks = activityManager.getRunningTasks(Integer.MAX_VALUE);
+
+//        for (int i = 0; i < recentTasks.size(); i++)
+//        {
+//            Log.e("Executed app", "Application executed : " +recentTasks.get(0).baseActivity.toShortString());
+//        }
             ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
 
             List<ActivityManager.RunningAppProcessInfo> tasks = manager.getRunningAppProcesses();
 
-            Log.i("current_app", tasks.get(0).processName);
-            packagename = tasks.get(0).processName;
+//            Log.i("current_app", tasks.get(0).processName);
+//            packagename = tasks.get(0).processName;
+            if(recentTasks.size() >1)
+                packagename = recentTasks.get(1).baseActivity.toShortString();
+            else
+                packagename = recentTasks.get(0).baseActivity.toShortString();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -275,6 +291,22 @@ public class CommonTask {
                     }
                 }
         }
+        return false;
+    }
+
+
+    /**
+     * checks if wifi is connected
+     * @param context
+     */
+    public static boolean isWifiConnected(Context context){
+        ConnectivityManager connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+
+        if (mWifi.isConnected()) {
+            return true;
+        }
+
         return false;
     }
 }

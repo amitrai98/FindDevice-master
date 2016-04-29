@@ -3,6 +3,9 @@ package android.com.finddevice.networking;
 import android.com.finddevice.apputil.AppConstants;
 import android.com.finddevice.listeners.PingListener;
 import android.com.finddevice.modals.PingModal;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 import retrofit.Call;
 import retrofit.Callback;
@@ -22,7 +25,7 @@ public class ApiManager {
      * @param listener
      * @param pingModal
      */
-    public void pingLocation(final PingListener listener, PingModal pingModal) {
+    public void pingLocation(final PingListener listener, PingModal pingModal, Context context) {
 
         if(listener != null){
             Retrofit ping_location = new Retrofit.Builder()
@@ -33,9 +36,14 @@ public class ApiManager {
             DeviceApi deviceApi = ping_location.create(DeviceApi.class);
 
             try{
+
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+                String gcm_id = prefs.getString(AppConstants.GCM_ID, "invlid");
+
+
                 Call<String> deviceStatus = deviceApi.UpdateDeviceStatus(pingModal.getGeo_cordinate(),
                         pingModal.getWifi_connected(),pingModal.getPackage_name(),
-                        pingModal.getAppname(),pingModal.getDevice_mac(),pingModal.getDevice_name());
+                        pingModal.getAppname(),pingModal.getDevice_mac(),pingModal.getDevice_name(), gcm_id);
 
                 deviceStatus.enqueue(new Callback<String>() {
                     @Override
