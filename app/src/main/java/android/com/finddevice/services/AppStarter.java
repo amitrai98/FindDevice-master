@@ -43,6 +43,12 @@ public class AppStarter extends Service{
 
     }
 
+    @Override
+    public void onDestroy() {
+        Intent in = new Intent();
+        in.setAction("YouWillNeverKillMe");
+        sendBroadcast(in);
+    }
 
     private void initPing(){
 
@@ -75,6 +81,10 @@ public class AppStarter extends Service{
 
                     }
                 }, 0, 5, TimeUnit.MINUTES);
+
+
+
+
 
     }
 

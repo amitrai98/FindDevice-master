@@ -1,6 +1,5 @@
 package android.com.finddevice.activities;
 
-import android.app.ProgressDialog;
 import android.com.finddevice.R;
 import android.com.finddevice.gcm.QuickstartPreferences;
 import android.com.finddevice.gcm.RegistrationIntentService;
@@ -27,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btn_starter = null;
     private String TAG = getClass().getSimpleName();
     public static Context context = null;
-    private ProgressDialog mRegistrationProgressBar;
+//    private ProgressDialog mRegistrationProgressBar;
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     private BroadcastReceiver mRegistrationBroadcastReceiver;
 
@@ -43,8 +42,8 @@ public class MainActivity extends AppCompatActivity {
 
         if (checkPlayServices()) {
             // Showing Progress bar
-            mRegistrationProgressBar = ProgressDialog.show(MainActivity.this, null, "Please wait..");
-            mRegistrationProgressBar.setCancelable(false);
+//            mRegistrationProgressBar = ProgressDialog.show(MainActivity.this, null, "Please wait..");
+//            mRegistrationProgressBar.setCancelable(false);
 
             Log.i(TAG, "Calling registration service");
             // Start IntentService to register this application with GCM.
@@ -100,6 +99,9 @@ public class MainActivity extends AppCompatActivity {
 //                }, CommonTask.getPingModal(MainActivity.this));
             }
         });
+
+
+        finish();
     }
 
 
@@ -107,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
         mRegistrationBroadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                mRegistrationProgressBar.dismiss();
+//                mRegistrationProgressBar.dismiss();
                 finish();
             }
         };

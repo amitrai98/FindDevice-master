@@ -12,6 +12,7 @@
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.REBOOT"/>
 
     <!-- [Start GCM permission] -->
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
@@ -46,6 +47,13 @@
         <service android:name=".services.AppStarter"
             android:enabled="true"/>
 
+        <receiver android:name=".broadcastreceivers.ServiceDestroyReceiver" >
+            <intent-filter>
+                <action android:name="YouWillNeverKillMe" >
+                </action>
+            </intent-filter>
+        </receiver>
+
         <receiver
             android:name=".services.BootReceiver"
             android:enabled="true"
@@ -53,6 +61,7 @@
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.SCREEN_ON" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
