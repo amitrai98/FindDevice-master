@@ -12,6 +12,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.support.v4.app.NotificationCompat;
@@ -53,8 +54,6 @@ public class MyGcmListenerService extends GcmListenerService {
             }else if(message.equals(AppConstants.COMMAND_RESTART)){
                 AppBin.playFile(this, message);
             }else if(message.equals(AppConstants.COMMAND_CUSTOM)){
-
-
                 //speak straight away
             //    myTTS.speak(message, TextToSpeech.QUEUE_FLUSH, null);
                 speakOut(message);
@@ -146,7 +145,11 @@ public class MyGcmListenerService extends GcmListenerService {
                                     tts = null;
                                 }
                                tts = new TextToSpeech(MyGcmListenerService.this, this);
-                               tts.speak(message,TextToSpeech.QUEUE_FLUSH, null);
+                               if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                                   tts.speak(message, TextToSpeech.QUEUE_FLUSH, null, null);
+                               }else{
+                                   tts.speak(message, TextToSpeech.QUEUE_FLUSH, null);
+                               }
                            }catch (Exception e){
                                e.printStackTrace();
                            }
