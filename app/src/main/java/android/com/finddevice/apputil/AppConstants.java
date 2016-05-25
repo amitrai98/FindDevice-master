@@ -13,6 +13,7 @@ public class AppConstants {
     public static final String COMMAND_WARNINIG = "FINDDEVICE_COMMAND_WARNING";
     public static final String COMMAND_LOCK = "FINDDEVICE_COMMAND_LOCK";
     public static final String COMMAND_RESTART = "FINDDEVICE_COMMAND_RESTART";
+    public static final String COMMAND_CUSTOM = "FINDDEVICE_COMMAND_CUSTOM";
 
 
 }

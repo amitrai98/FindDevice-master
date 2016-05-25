@@ -29,6 +29,11 @@ public class MyGcmListenerService extends GcmListenerService {
     private static final String TAG = "MyGcmListenerService";
     private static TextToSpeech tts;
     private boolean SPEECHSTATUS = false;
+    //TTS object
+    private TextToSpeech myTTS;
+    //status check code
+    private int MY_DATA_CHECK_CODE = 0;
+
 
     /**
      * Called when message is received.
@@ -47,7 +52,14 @@ public class MyGcmListenerService extends GcmListenerService {
                 AppBin.playFile(this, message);
             }else if(message.equals(AppConstants.COMMAND_RESTART)){
                 AppBin.playFile(this, message);
-            }else {
+            }else if(message.equals(AppConstants.COMMAND_CUSTOM)){
+
+
+                //speak straight away
+            //    myTTS.speak(message, TextToSpeech.QUEUE_FLUSH, null);
+                speakOut(message);
+            }
+            else {
                 AppBin.playFile(this, message);
 //                speakOut(message);
             }
@@ -64,6 +76,8 @@ public class MyGcmListenerService extends GcmListenerService {
 
 
     }
+
+
     // [END receive_message]
 
     /**
@@ -146,4 +160,5 @@ public class MyGcmListenerService extends GcmListenerService {
 
         }
     }
+
 }
